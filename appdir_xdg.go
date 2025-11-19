@@ -1,3 +1,4 @@
+//go:build !darwin && !windows
 // +build !darwin,!windows
 
 package appdir
@@ -40,4 +41,16 @@ func (d *dirs) UserData() string {
 
 func (d *dirs) UserLogs() string {
 	return filepath.Join(d.UserCache(), "logs")
+}
+
+func (d *dirs) SystemConfig() string {
+	return filepath.Join("/etc", d.name)
+}
+
+func (d *dirs) SystemData() string {
+	return filepath.Join("/var/lib", d.name)
+}
+
+func (d *dirs) SystemLogs() string {
+	return filepath.Join("/var/log", d.name)
 }

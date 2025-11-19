@@ -1,3 +1,6 @@
+//go:build !darwin && !windows
+// +build !darwin,!windows
+
 package appdir
 
 import (
@@ -158,5 +161,29 @@ func TestUserData(t *testing.T) {
 				t.Errorf("expected %q, found %q", tc.expected, have)
 			}
 		})
+	}
+}
+
+func TestSystemConfig(t *testing.T) {
+	d := dirs{name: "app"}
+	expected := "/etc/app"
+	if have := d.SystemConfig(); have != expected {
+		t.Fatalf("expected %v, found %v", expected, have)
+	}
+}
+
+func TestSystemData(t *testing.T) {
+	d := dirs{name: "app"}
+	expected := "/var/lib/app"
+	if have := d.SystemData(); have != expected {
+		t.Fatalf("expected %v, found %v", expected, have)
+	}
+}
+
+func TestSystemLogs(t *testing.T) {
+	d := dirs{name: "app"}
+	expected := "/var/log/app"
+	if have := d.SystemLogs(); have != expected {
+		t.Fatalf("expected %v, found %v", expected, have)
 	}
 }

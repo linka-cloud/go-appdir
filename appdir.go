@@ -11,6 +11,12 @@ type Dirs interface {
 	UserLogs() string
 	// Get the user-specific data directory.
 	UserData() string
+	// Get the system-wide config directory.
+	SystemConfig() string
+	// Get the system-wide data directory.
+	SystemData() string
+	// Get the system-wide logs directory.
+	SystemLogs() string
 }
 
 // New creates a new App with the provided name.
