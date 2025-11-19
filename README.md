@@ -1,6 +1,6 @@
 # go-appdir
 
-[![GoDoc](https://godoc.org/github.com/emersion/go-appdir?status.svg)](https://godoc.org/github.com/emersion/go-appdir)
+[![GoDoc](https://godoc.org/go.linka.cloud/go-appdir?status.svg)](https://godoc.org/go.linka.cloud/go-appdir)
 
 Go package to get application directories such as config and cache.
 
@@ -25,7 +25,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/emersion/go-appdir"
+	"go.linka.cloud/go-appdir"
 )
 
 func main() {

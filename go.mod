@@ -1,4 +1,4 @@
-module github.com/emersion/go-appdir
+module go.linka.cloud/go-appdir
 
 go 1.15
 
