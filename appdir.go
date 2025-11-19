@@ -1,25 +1,25 @@
-// Get application directories such as config and cache.
+// Package appdir provides helpers to locate application directories such as config and cache.
 package appdir
 
-// Dirs requests application directories paths.
+// Dirs exposes helpers to locate application directory paths.
 type Dirs interface {
-	// Get the user-specific config directory.
+	// UserConfig returns the user-specific config directory.
 	UserConfig() string
-	// Get the user-specific cache directory.
+	// UserCache returns the user-specific cache directory.
 	UserCache() string
-	// Get the user-specific logs directory.
+	// UserLogs returns the user-specific logs directory.
 	UserLogs() string
-	// Get the user-specific data directory.
+	// UserData returns the user-specific data directory.
 	UserData() string
-	// Get the system-wide config directory.
+	// SystemConfig returns the system-wide config directory.
 	SystemConfig() string
-	// Get the system-wide data directory.
+	// SystemData returns the system-wide data directory.
 	SystemData() string
-	// Get the system-wide logs directory.
+	// SystemLogs returns the system-wide logs directory.
 	SystemLogs() string
 }
 
-// New creates a new App with the provided name.
+// New creates a new Dirs implementation for the provided application name.
 func New(name string) Dirs {
 	return &dirs{name: name}
 }
