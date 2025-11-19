@@ -5,6 +5,8 @@ package appdir
 
 import (
 	"os"
+	"path/filepath"
+	"strconv"
 	"testing"
 )
 
@@ -184,6 +186,43 @@ func TestSystemLogs(t *testing.T) {
 	d := dirs{name: "app"}
 	expected := "/var/log/app"
 	if have := d.SystemLogs(); have != expected {
+		t.Fatalf("expected %v, found %v", expected, have)
+	}
+}
+
+func TestUserRun(t *testing.T) {
+	const runtimeDir = "/run/xdg"
+	if err := os.Setenv("XDG_RUNTIME_DIR", runtimeDir); err != nil {
+		panic(err)
+	}
+	d := dirs{name: "app"}
+	expected := filepath.Join(runtimeDir, "app")
+	if have := d.UserRun(); have != expected {
+		t.Fatalf("expected %v, found %v", expected, have)
+	}
+}
+
+func TestUserRunFallback(t *testing.T) {
+	orig := os.Getenv("XDG_RUNTIME_DIR")
+	defer os.Setenv("XDG_RUNTIME_DIR", orig)
+	if err := os.Unsetenv("XDG_RUNTIME_DIR"); err != nil {
+		panic(err)
+	}
+	d := dirs{name: "app"}
+	uid := os.Getuid()
+	expected := filepath.Join("/run", "user", strconv.Itoa(uid), "app")
+	if uid < 0 {
+		expected = filepath.Join(os.TempDir(), "app")
+	}
+	if have := d.UserRun(); have != expected {
+		t.Fatalf("expected %v, found %v", expected, have)
+	}
+}
+
+func TestSystemRun(t *testing.T) {
+	d := dirs{name: "app"}
+	expected := "/var/run/app"
+	if have := d.SystemRun(); have != expected {
 		t.Fatalf("expected %v, found %v", expected, have)
 	}
 }

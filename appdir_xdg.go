@@ -6,6 +6,7 @@ package appdir
 import (
 	"os"
 	"path/filepath"
+	"strconv"
 )
 
 type dirs struct {
@@ -43,6 +44,17 @@ func (d *dirs) UserLogs() string {
 	return filepath.Join(d.UserCache(), "logs")
 }
 
+func (d *dirs) UserRun() string {
+	if baseDir := os.Getenv("XDG_RUNTIME_DIR"); baseDir != "" {
+		return filepath.Join(baseDir, d.name)
+	}
+	uid := os.Getuid()
+	if uid >= 0 {
+		return filepath.Join("/run", "user", strconv.Itoa(uid), d.name)
+	}
+	return filepath.Join(os.TempDir(), d.name)
+}
+
 func (d *dirs) SystemConfig() string {
 	return filepath.Join("/etc", d.name)
 }
@@ -53,4 +65,8 @@ func (d *dirs) SystemData() string {
 
 func (d *dirs) SystemLogs() string {
 	return filepath.Join("/var/log", d.name)
+}
+
+func (d *dirs) SystemRun() string {
+	return filepath.Join("/var/run", d.name)
 }

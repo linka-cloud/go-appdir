@@ -11,12 +11,16 @@ type Dirs interface {
 	UserLogs() string
 	// UserData returns the user-specific data directory.
 	UserData() string
+	// UserRun returns the user-specific runtime directory.
+	UserRun() string
 	// SystemConfig returns the system-wide config directory.
 	SystemConfig() string
 	// SystemData returns the system-wide data directory.
 	SystemData() string
 	// SystemLogs returns the system-wide logs directory.
 	SystemLogs() string
+	// SystemRun returns the system-wide runtime directory.
+	SystemRun() string
 }
 
 // New creates a new Dirs implementation for the provided application name.

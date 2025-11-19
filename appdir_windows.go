@@ -53,6 +53,11 @@ func (d *dirs) UserData() string {
 	return filepath.Join(localAppData, d.name)
 }
 
+func (d *dirs) UserRun() string {
+	initOnce.Do(initFolders)
+	return filepath.Join(localAppData, d.name, "Run")
+}
+
 func (d *dirs) SystemConfig() string {
 	initOnce.Do(initFolders)
 	return systemProgramPath(programData, d.name)
@@ -64,6 +69,11 @@ func (d *dirs) SystemData() string {
 }
 
 func (d *dirs) SystemLogs() string {
+	initOnce.Do(initFolders)
+	return systemProgramPath(programData, d.name)
+}
+
+func (d *dirs) SystemRun() string {
 	initOnce.Do(initFolders)
 	return systemProgramPath(programData, d.name)
 }
