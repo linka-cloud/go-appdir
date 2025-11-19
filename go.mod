@@ -1,5 +1,5 @@
 module go.linka.cloud/go-appdir
 
-go 1.15
+go 1.24.0
 
-require golang.org/x/sys v0.0.0-20201211090839-8ad439b19e0f
+require golang.org/x/sys v0.38.0
