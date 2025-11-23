@@ -33,29 +33,32 @@ func initFolders() {
 	}
 }
 
-func (d *dirs) UserConfig() string {
+func (d *dirs) UserConfig(uid ...string) string {
+	if home := homeDirFor(uid); home != "" {
+		return filepath.Join(home, "AppData", "Roaming", d.name)
+	}
 	initOnce.Do(initFolders)
 	return filepath.Join(roamingAppData, d.name)
 }
 
-func (d *dirs) UserCache() string {
+func (d *dirs) UserCache(uid ...string) string {
+	if home := homeDirFor(uid); home != "" {
+		return filepath.Join(home, "AppData", "Local", d.name)
+	}
 	initOnce.Do(initFolders)
 	return filepath.Join(localAppData, d.name)
 }
 
-func (d *dirs) UserLogs() string {
-	initOnce.Do(initFolders)
-	return filepath.Join(localAppData, d.name)
+func (d *dirs) UserLogs(uid ...string) string {
+	return d.UserCache(uid...)
 }
 
-func (d *dirs) UserData() string {
-	initOnce.Do(initFolders)
-	return filepath.Join(localAppData, d.name)
+func (d *dirs) UserData(uid ...string) string {
+	return d.UserCache(uid...)
 }
 
-func (d *dirs) UserRun() string {
-	initOnce.Do(initFolders)
-	return filepath.Join(localAppData, d.name, "Run")
+func (d *dirs) UserRun(uid ...string) string {
+	return filepath.Join(d.UserCache(uid...), "Run")
 }
 
 func (d *dirs) SystemConfig() string {

@@ -3,16 +3,21 @@ package appdir
 
 // Dirs exposes helpers to locate application directory paths.
 type Dirs interface {
-	// UserConfig returns the user-specific config directory.
-	UserConfig() string
-	// UserCache returns the user-specific cache directory.
-	UserCache() string
-	// UserLogs returns the user-specific logs directory.
-	UserLogs() string
-	// UserData returns the user-specific data directory.
-	UserData() string
-	// UserRun returns the user-specific runtime directory.
-	UserRun() string
+	// UserConfig returns the user-specific config directory. When uid is
+	// provided, it is used to resolve another user's home directory.
+	UserConfig(uid ...string) string
+	// UserCache returns the user-specific cache directory. When uid is provided,
+	// it is used to resolve another user's home directory.
+	UserCache(uid ...string) string
+	// UserLogs returns the user-specific logs directory. When uid is provided, it
+	// is used to resolve another user's home directory.
+	UserLogs(uid ...string) string
+	// UserData returns the user-specific data directory. When uid is provided, it
+	// is used to resolve another user's home directory.
+	UserData(uid ...string) string
+	// UserRun returns the user-specific runtime directory. When uid is provided,
+	// it is used to resolve another user's runtime directory.
+	UserRun(uid ...string) string
 	// SystemConfig returns the system-wide config directory.
 	SystemConfig() string
 	// SystemData returns the system-wide data directory.
